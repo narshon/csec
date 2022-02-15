@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+use kartik\date\DatePicker;
+use kartik\select2\Select2;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Child */
 /* @var $form yii\widgets\ActiveForm */
@@ -14,9 +17,26 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fk_consent')->textInput() ?>
 
-    <?= $form->field($model, 'interview_date')->textInput() ?>
+    <?= $form->field($model, 'interview_date')->widget(DatePicker::className(),[
+            'removeButton' => false,
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+    ]) ?>
 
-    <?= $form->field($model, 'child_support_other')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'child_support_other')->widget(Select2::classname(), [
+        'data' => ['1' => 'Yes','0' =>'No'],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'child_support_org')->textInput(['maxlength' => true]) ?>
 
@@ -26,7 +46,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'gender')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'dob')->textInput() ?>
+    <?= $form->field($model, 'dob')->widget(DatePicker::className(),[
+            'removeButton' => false,
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+    ]) ?>
+
 
     <?= $form->field($model, 'age')->textInput() ?>
 
@@ -48,25 +76,87 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'landmark_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'child_school_attendance')->textInput() ?>
+
+    <?= $form->field($model, 'child_school_attendance')->widget(Select2::classname(), [
+        'data' => ['1' => 'Regular','2' =>'Not Regular','3' =>'Never went to school'],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'not_regular_reason')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'meal_per_day')->textInput() ?>
+    <?= $form->field($model, 'meal_per_day')->widget(Select2::classname(), [
+        'data' => ['1' => '1 in a day','2' =>'2 in a day','3' =>'3 in a day',
+                   '4' =>'Sometimes goes without food',],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'child_chronic_ill')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'child_chronic_ill')->widget(Select2::classname(), [
+        'data' => ['yes' => 'Yes','no' =>'No'],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'child_chronic_ill_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fmember_chronic_ill')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fmember_chronic_ill')->widget(Select2::classname(), [
+        'data' => ['1' => 'Yes','0' =>'No'],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'fmember_chronic_ill_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'parent_alive')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'parent_alive')->widget(Select2::classname(), [
+        'data' => ['1' => 'Yes','0' =>'No'],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'who_alive')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'stay_together')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'stay_together')->widget(Select2::classname(), [
+        'data' => ['1' => 'Yes','0' =>'No'],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'fwife_number')->textInput() ?>
 
@@ -116,17 +206,50 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sex_exploit')->textarea(['rows' => 6]) ?>
 
+
     <?= $form->field($model, 'exploit_happen_when')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'exploit_continue')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'exploit_continue')->widget(Select2::classname(), [
+        'data' => ['1' => 'Yes','0' =>'No'],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'exploit_month')->textInput() ?>
 
     <?= $form->field($model, 'exploit_year')->textInput() ?>
 
-    <?= $form->field($model, 'exploit_reported')->textInput() ?>
+    <?= $form->field($model, 'exploit_reported')->widget(Select2::classname(), [
+        'data' => ['1' => 'Yes','0' =>'No'],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'exploit_reported_to')->textInput() ?>
+    <?= $form->field($model, 'exploit_reported_to')->widget(Select2::classname(), [
+        'data' => ['family member' => 'Family member','community focal person' =>'Community Focal person',
+        'religious leader' =>'Religious leaders','teacher' =>'Teachers','department of children services' =>'Department of Children services',
+        'other' =>'Other',],
+        'options' => [
+            'placeholder' => 'Select...',
+            'multiple' => false,
+            'disabled' => false,
+        ],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'exploit_rpt_to_spec')->textarea(['rows' => 6]) ?>
 
@@ -140,13 +263,28 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'caregiver_interview_contact')->textInput() ?>
 
-    <?= $form->field($model, 'caregiver_interview_date')->textInput() ?>
+    <?= $form->field($model, 'caregiver_interview_date')->widget(DatePicker::className(),[
+            'removeButton' => false,
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+    ]) ?>
 
     <?= $form->field($model, 'kesho_staff_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'kesho_staff_contact')->textInput() ?>
 
-    <?= $form->field($model, 'kesho_staff_interview_date')->textInput() ?>
+    <?= $form->field($model, 'kesho_staff_interview_date')->widget(DatePicker::className(),[
+            'removeButton' => false,
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+    ]) ?>
+
 
     <?= $form->field($model, 'kesho_designation')->textInput(['maxlength' => true]) ?>
 

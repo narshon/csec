@@ -14,6 +14,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'child_code')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'eligibility_date')->widget(DatePicker::className(),[
+            'removeButton' => false,
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+    ]) ?>
+
     <?= $form->field($model, 'eligibility_date')->textInput() ?>
 
     <?= $form->field($model, 'factor_family')->textInput() ?>
