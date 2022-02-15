@@ -92,7 +92,7 @@ code {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 10px;
 }
 
 .footer {
@@ -253,4 +253,8 @@ a.desc:after {
 }
 .highlighted_flag_delete{
    background-color: #ff9999 !important;
+}
+
+.card{
+    margin-left: 20px;
 }

@@ -123,7 +123,7 @@ DOC;
         $dh = new DataHelper;
         $model->load(Yii::$app->request->post());
    
-        if ( $model->save()) {
+        if ( $model->save()) { 
             //return $this->redirect(['view', 'id' => $model->id]);
             if (Yii::$app->request->isAjax)
             {   

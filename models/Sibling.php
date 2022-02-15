@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use app\utilities\DataHelper;
+use yii\web\Response;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%csec_sibling}}".
@@ -22,7 +25,7 @@ class Sibling extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%csec_sibling}}';
+        return '{{%sibling}}';
     }
 
     /**
