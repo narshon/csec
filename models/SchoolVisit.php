@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\Url;
 /**
  * This is the model class for table "{{%school_visit}}".
  *
@@ -95,4 +95,62 @@ class SchoolVisit extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Child::className(), ['id' => 'fk_child']);
     }
+
+    public function getForm($model_name, $model, $fk_child){
+        switch($model_name){
+             case "Child":
+                $object = Self::find()->where(['fk_child'=>$model->id])->one();
+                if($object){
+                    return Url::to(['school-visit/update','id'=>$object->id]);
+                }
+                else{
+                    #create mode
+                    return Url::to(['school-visit/create']);
+                }
+                break;
+             case "Consent":
+                 $child = Child::find()->where(['fk_consent'=>$model->id])->one();
+                 if($child){
+                    $object = Self::find()->where(['fk_child'=>$child->id])->one();
+                    if($object){
+                        return Url::to(['school-visit/update','id'=>$object->id]);
+                    }
+                    else{
+                        #create mode
+                        return Url::to(['school-visit/create']);
+                    }
+                 }
+                 break;
+             case "Eligibility":
+                 $consent = Consent::find()->where(['fk_eligibilty_id'=>$model->id])->one();
+                 if($consent){
+                     $child = Child::find()->where(['fk_consent'=>$consent->id])->one();
+                     if($child){
+                        $object = Self::find()->where(['fk_child'=>$child->id])->one();
+                        if($object){
+                            return Url::to(['school-visit/update','id'=>$object->id]);
+                        }
+                        else{
+                            #create mode
+                            return Url::to(['school-visit/create']);
+                        }
+                     }
+                     
+                 }
+                 break;
+             case "SchoolVisit":
+                return Url::to(['school-visit/update','id'=>$model->id]);
+                break;
+             default:
+                $need = Self::find()->where(['fk_child'=>$fk_child])->one();
+                if($need){
+                    return Url::to(['school-visit/update','id'=>$need->id]);
+                }
+                else{
+                    #create mode
+                    return Url::to(['school-visit/index', 'fk_child'=>$fk_child]);
+                }
+                break;
+         }
+     }
 }

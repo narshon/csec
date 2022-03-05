@@ -3,39 +3,25 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Child;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\NeedAssessmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Need Assessments';
-$this->params['breadcrumbs'][] = $this->title;
+$child = Child::findOne($fk_child); 
+if($child){
+    $this->title = "Child Code: ". $child->fkConsent->fkEligibilty->child_code;
+    $fk_child = $child->id;
+}
+else{
+    $fk_child = NULL;
+}
 ?>
-<div class="need-assessment-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Need Assessment', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'fk_child',
-            'location',
-            'phone',
-            'alive_status',
-            //'mother',
-            //'father',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
-</div>
+<?= $this->render("//site/updateboard", ['model'=>$model, 
+                 'form'=>"//need-assessment/grid",
+                 'form_name'=>"Need Assessment Form", 'model_name'=>"NeedAssessment",
+                 'fk_child'=>$fk_child,
+                 'searchModel' => $searchModel,
+                 'dataProvider' => $dataProvider
+                 ]); ?>

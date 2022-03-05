@@ -1,21 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\Child;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Consent */
 
-$this->title = 'Update Consent: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Consents', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Child Code: ' . $model->fkEligibilty->child_code;
+$child = Child::find()->where(['fk_consent'=>$model->id])->one();
+$fk_child = isset($child)?$child->id:NULL;
+
 ?>
-<div class="consent-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+<?= $this->render("//site/updateboard", ['model'=>$model, 'form'=>"//consent/_form",
+            'form_name'=>"Consent Form", 'model_name'=>"Consent", 'fk_child'=>$fk_child]); ?>

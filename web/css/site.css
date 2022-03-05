@@ -92,7 +92,8 @@ code {
 }
 
 .wrap > .container {
-    padding: 10px;
+    /*  padding: 10px; **/
+    margin-top: 80px;
 }
 
 .footer {
@@ -194,9 +195,6 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
-.thumbnail-img{
-    
-}
 .resp-container {
     position: relative;
     overflow: hidden;
@@ -257,4 +255,13 @@ a.desc:after {
 
 .card{
     margin-left: 20px;
+}
+
+.tab-pane{
+    margin: 20px !important;
+}
+.half{
+    width: 400px;
+    margin: 10px;
+    padding: 20px;
 }

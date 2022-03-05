@@ -12,7 +12,7 @@ use app\utilities\DataHelper;
 use yii\web\Response;
 use yii\helpers\Url;
 
-/**
+/** 
  * LookupCategoryController implements the CRUD actions for LookupCategory model.
  */
 class LookupCategoryController extends Controller

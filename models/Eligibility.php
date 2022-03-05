@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%eligibility}}".
@@ -89,5 +90,47 @@ class Eligibility extends \yii\db\ActiveRecord
     public function getConsents()
     {
         return $this->hasMany(Consent::className(), ['fk_eligibilty_id' => 'id']);
+    }
+
+    public function insertEligibility($child_code){
+        #check if we already have an eligibility - to avoid duplicates
+        $check = $this->find()->where(['child_code'=>$child_code])->one();
+        if($check){
+            #do not create a new recored
+            return $check->id;
+        }
+        else{
+            #record did not exist, insert now.
+            $this->child_code = $child_code;
+            $this->save(False);
+            $id = $this->getPrimaryKey();
+
+            return $id;
+        }
+
+        return FALSE;
+        
+    }
+
+    public function getChildCode($fk_consent){
+        $consent = Consent::findOne($fk_consent);
+        if($consent){
+            #find the elgibility model for this child
+            $elig = Eligibility::findOne($consent->fk_eligibilty_id);
+            if($elig){
+                return $elig->child_code;
+            }
+        }
+
+    }
+    public function getEligibilityDate($fk_consent){
+        $consent = Consent::findOne($fk_consent);
+        if($consent){
+            #find the elgibility model for this child
+            $elig = Eligibility::findOne($consent->fk_eligibilty_id);
+            if($elig){
+                return $elig->eligibility_date;
+            }
+        }
     }
 }

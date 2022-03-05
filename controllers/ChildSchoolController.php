@@ -70,23 +70,23 @@ class ChildSchoolController extends Controller
         $model = new ChildSchool();
         $keyword = 'child-school';
         $dh = new DataHelper;
-        $model->load(Yii::$app->request->post());
-   
-        if ( $model->save()) { 
-            //return $this->redirect(['view', 'id' => $model->id]);
-            if (Yii::$app->request->isAjax)
-            {   
-                #return json_encode($this->renderAjax('update', ['model' => $model]));
-                $model->afterFind();
-                return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+        
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
             }
-        } else {
+        }
+         else {
             if (Yii::$app->request->isAjax)
             {
                 return $dh->processResponse($this, $model, $keyword, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
             }
             else{
-                return $this->render('update', [
+                return $this->render('create', [
                     'model' => $model,
                 ]);
             }
@@ -100,21 +100,20 @@ class ChildSchoolController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $keyword = 'child-school')
     {
         $model = $this->findModel($id);
         $dh = new DataHelper;
-        $model->load(Yii::$app->request->post());
-   
-        if ( $model->save()) { 
-            //return $this->redirect(['view', 'id' => $model->id]);
-            if (Yii::$app->request->isAjax)
-            {   
-                #return json_encode($this->renderAjax('update', ['model' => $model]));
-                $model->afterFind();
-                return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
             }
-        } else {
+        }
+        else {
             if (Yii::$app->request->isAjax)
             {
                 return $dh->processResponse($this, $model, $keyword, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   

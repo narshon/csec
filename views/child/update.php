@@ -1,21 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Child */
 
-$this->title = 'Update Child: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Children', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = "Child Code: ". $model->fkConsent->fkEligibilty->child_code;
 ?>
-<div class="child-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+<?= $this->render("//site/updateboard", ['model'=>$model, 'form'=>"//Child/tabs",
+            'form_name'=>"Identification Tool", 'model_name'=>"Child", 'fk_child'=>$model->id]); ?>

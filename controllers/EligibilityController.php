@@ -12,7 +12,7 @@ use app\utilities\DataHelper;
 use yii\web\Response;
 use yii\helpers\Url;
 
-/**
+/** 
  * EligibilityController implements the CRUD actions for Eligibility model.
  */
 class EligibilityController extends Controller
@@ -65,31 +65,33 @@ class EligibilityController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($view='_form')
     {
         $model = new Eligibility();
         $dh = new DataHelper;
-        $model->load(Yii::$app->request->post());
-   
-        if ( $model->save()) { 
-            //return $this->redirect(['view', 'id' => $model->id]);
-            if (Yii::$app->request->isAjax)
-            {   
-                #return json_encode($this->renderAjax('update', ['model' => $model]));
-                $model->afterFind();
-                return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+        $keyword = "eligibility";
+        
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $view, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
             }
-        } else {
+        }
+         else {
             if (Yii::$app->request->isAjax)
             {
-                return $dh->processResponse($this, $model, $keyword, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
+                return $dh->processResponse($this, $model, $view, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
             }
             else{
-                return $this->render('update', [
+                return $this->render('create', [
                     'model' => $model,
                 ]);
             }
         }
+
     }
 
     /**
@@ -99,24 +101,24 @@ class EligibilityController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $keyword = "eligibility", $view='_form')
     {
         $model = $this->findModel($id);
         $dh = new DataHelper;
-        $model->load(Yii::$app->request->post());
-   
-        if ( $model->save()) { 
-            //return $this->redirect(['view', 'id' => $model->id]);
-            if (Yii::$app->request->isAjax)
-            {   
-                #return json_encode($this->renderAjax('update', ['model' => $model]));
-                $model->afterFind();
-                return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+        
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $view, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
             }
-        } else {
+        }
+        else {
             if (Yii::$app->request->isAjax)
             {
-                return $dh->processResponse($this, $model, $keyword, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
+                return $dh->processResponse($this, $model, $view, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
             }
             else{
                 return $this->render('update', [

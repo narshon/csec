@@ -8,8 +8,11 @@ use app\models\NeedAssessmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\utilities\DataHelper;
+use yii\web\Response;
+use yii\helpers\Url;
 
-/**
+/** 
  * NeedAssessmentController implements the CRUD actions for NeedAssessment model.
  */
 class NeedAssessmentController extends Controller
@@ -33,14 +36,20 @@ class NeedAssessmentController extends Controller
      * Lists all NeedAssessment models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($fk_child = 0)
     {
+    
         $searchModel = new NeedAssessmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere("fk_child = $fk_child");
 
+        $model = NeedAssessment::find()->where(['fk_child'=>$fk_child])->one();
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'fk_child' => $fk_child,
+            'model' =>$model
         ]);
     }
 
@@ -62,17 +71,35 @@ class NeedAssessmentController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($fk_child=0)
     {
+        $keyword = "need-assessment";
         $model = new NeedAssessment();
+        $dh = new DataHelper;
+        $model->fk_child = $fk_child;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    #return $this->refresh();
+                    return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
+            }
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+         else {
+            if (Yii::$app->request->isAjax)
+            {
+                return $dh->processResponse($this, $model, '_form', 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
+            }
+            else{
+                return $this->render('_form', [
+                    'model' => $model,
+                    'fk_child' => $fk_child
+                ]);
+            }
+        }
     }
 
     /**
@@ -82,18 +109,32 @@ class NeedAssessmentController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $keyword = "update", $view='_form')
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $dh = new DataHelper;
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $view, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
+            }
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else {
+            if (Yii::$app->request->isAjax)
+            {
+                return $dh->processResponse($this, $model, $view, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
+            }
+            else{
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        }
     }
+
 
     /**
      * Deletes an existing NeedAssessment model.

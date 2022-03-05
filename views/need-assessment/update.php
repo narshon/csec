@@ -5,17 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\NeedAssessment */
 
-$this->title = 'Update Need Assessment: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Need Assessments', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
-?>
-<div class="need-assessment-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+$this->title = "Child Code: ". $model->fkChild->fkConsent->fkEligibilty->child_code;
+?> 
+<?= $this->render("//site/updateboard", ['model'=>$model, 
+                 'form'=>"//need-assessment/tabs",
+                 'form_name'=>"Need Assessment Form", 'model_name'=>"NeedAssessment"]); ?>

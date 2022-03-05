@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%consent}}".
@@ -88,5 +89,59 @@ class Consent extends \yii\db\ActiveRecord
     public function getFkEligibilty()
     {
         return $this->hasOne(Eligibility::className(), ['id' => 'fk_eligibilty_id']);
+    }
+
+    public function insertConsent($child_init, $elig_id){
+        #check if we already have an eligibility - to avoid duplicates
+        $check = $this->find()->where(['child_init'=>$child_init, 'fk_eligibilty_id'=>$elig_id])->one();
+        if($check){
+            #do not create a new recored
+            return $check->id;
+        }
+        else{
+            #record did not exist, insert now.
+            $this->fk_eligibilty_id = $elig_id;
+            $this->child_init = $child_init;
+            $this->save(False);
+            $id = $this->getPrimaryKey();
+
+            return $id;
+        }
+
+        return FALSE;
+        
+    }
+    public function getChildInitials($fk_consent){
+        $consent = Self::findOne($fk_consent);
+        if($consent){
+            return $consent->child_init;
+        }
+    }
+
+    public function getConsentForm($model_name, $model, $fk_child=NULL){
+        switch($model_name){
+            case "Child":
+                return Url::to(['consent/update','id'=>$model->fk_consent]);
+                break;
+            case "Consent":
+                return Url::to(['consent/update','id'=>$model->id]);
+                break;
+            case "Eligibility":
+                $consent = Self::find()->where(['fk_eligibilty_id'=>$model->id])->one();
+                if($consent){
+                    return Url::to(['consent/update','id'=>$consent->id]);
+                }
+                break;
+            default:
+                if(isset($model->fkChild)){
+                    return Url::to(['consent/update','id'=>$model->fkChild->fk_consent]);
+                }
+                else{
+                    $child = Child::findOne($fk_child);
+                    if($child){
+                        return Url::to(['consent/update','id'=>$child->fk_consent]);
+                    }
+                }
+        }
     }
 }

@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\Url;
 /**
  * This is the model class for table "{{%child}}".
  *
@@ -54,6 +54,7 @@ use Yii;
  * @property string $other_name
  * @property int $other_name_contact
  * @property int $fmember_income_no Family members over 18 years access to income
+ * @property int $fmember_income_sources
  * @property int $income_regularity Regularity of income
  * @property int $household_indebt Household present indebtness to meet basic needs
  * @property int $household_assets Household acess to natural resources
@@ -77,7 +78,7 @@ use Yii;
  * @property int $kesho_staff_contact Kesho Kenya staff contact
  * @property string $kesho_staff_interview_date Date Kesho Kenya staff gave details
  * @property string $kesho_designation Kesho Kenya staff designation
- *
+ * 
  * @property Consent $fkConsent
  * @property ChildSchool[] $childSchools
  * @property ChildSibling[] $childSiblings
@@ -87,6 +88,9 @@ use Yii;
  */
 class Child extends \yii\db\ActiveRecord
 {
+    public $child_code;
+    public $child_init;
+
     /**
      * {@inheritdoc}
      */
@@ -101,14 +105,14 @@ class Child extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fk_consent', 'age', 'child_school_attendance', 'meal_per_day', 'fwife_number', 'sibling_no', 'sibling_order_9_15', 'sibling_order_16_20', 'sibling_order_21_25', 'sibling_order_26_30', 'sibling_order_31_35', 'sibling_order_35_above', 'father_contact', 'mother_contact', 'caregiver_contact', 'other_name_contact', 'fmember_income_no', 'income_regularity', 'household_indebt', 'household_assets', 'household_tools', 'exploit_month', 'exploit_year', 'exploit_reported', 'exploit_reported_to', 'caregiver_interview_contact', 'kesho_staff_contact'], 'integer'],
+            [['fk_consent', 'age', 'child_school_attendance', 'meal_per_day', 'fwife_number', 'sibling_no', 'sibling_order_9_15', 'sibling_order_16_20', 'sibling_order_21_25', 'sibling_order_26_30', 'sibling_order_31_35', 'sibling_order_35_above', 'father_contact', 'mother_contact', 'caregiver_contact', 'other_name_contact', 'fmember_income_no','fmember_income_sources', 'income_regularity', 'household_indebt', 'household_assets', 'household_tools', 'exploit_month', 'exploit_year', 'exploit_reported', 'exploit_reported_to', 'caregiver_interview_contact', 'kesho_staff_contact'], 'integer'],
             [['interview_date', 'dob', 'caregiver_interview_date', 'kesho_staff_interview_date'], 'safe'],
             [['child_support_service', 'not_regular_reason', 'sex_exploit', 'exploit_rpt_to_spec', 'exploit_notreported_reason', 'other_detail'], 'string'],
             [['child_support_other', 'child_chronic_ill', 'fmember_chronic_ill', 'parent_alive', 'stay_together'], 'string', 'max' => 5],
             [['child_support_org', 'disability', 'school_name', 'child_educ_level', 'country', 'sub_county', 'location', 'landmark', 'landmark_name', 'child_live_with', 'father_name', 'mother_name', 'caregiver_name', 'other_name', 'exploit_happen_when', 'exploit_continue', 'kesho_staff_name', 'kesho_designation'], 'string', 'max' => 20],
             [['child_name', 'gender', 'class', 'who_alive', 'child_init', 'caregiver_interview_name'], 'string', 'max' => 10],
             [['child_chronic_ill_spec', 'fmember_chronic_ill_spec'], 'string', 'max' => 50],
-            [['hhold_educ_level'], 'string', 'max' => 100],
+            [['hhold_educ_level', 'child_code'], 'string', 'max' => 100],
             [['fk_consent'], 'exist', 'skipOnError' => true, 'targetClass' => Consent::className(), 'targetAttribute' => ['fk_consent' => 'id']],
         ];
     }
@@ -165,7 +169,8 @@ class Child extends \yii\db\ActiveRecord
             'caregiver_contact' => 'Caregiver Contact',
             'other_name' => 'Other Name',
             'other_name_contact' => 'Other Name Contact',
-            'fmember_income_no' => 'Family members over 18 years access to income',
+            'fmember_income_no' => 'How many family members of working age (over 18) have access to income',
+            'fmember_income_sources' => "How many family members of working age (over 18) have access to income (sources)",
             'income_regularity' => 'What is the regularity of income?',
             'household_indebt' => 'Household present indebtness to meet basic needs',
             'household_assets' => 'Household acess to natural resources',
@@ -239,4 +244,88 @@ class Child extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CsesSchoolVisit::className(), ['fk_child' => 'id']);
     }
+
+    public function beforeSave($insert){
+
+        if($this->isNewRecord){
+            #generate eligibility ID
+            $elig = new Eligibility();
+            $elig_id = $elig->insertEligibility($this->child_code);
+            if($elig_id){
+                #generate consent ID
+                $consent = new Consent();
+                $consent_id = $consent->insertConsent($this->child_init, $elig_id);
+                if($consent_id ){
+                    #insert data in child
+                    $this->fk_consent = $consent_id;
+
+                }
+                else{
+                    #raise consent not found error
+                    $this->addError("child_code", "Consent was not found. Could not create child record!");
+                }
+            }
+            else{
+                #raise eligibility not found error
+                $this->addError("child_code", "Eligibility was not found. Could not create child record!");
+            }
+            
+        }
+
+        if($this->hasErrors()){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    public function secondaryMenu($scenario, $child_id){
+        
+        $child = Self::findOne($child_id);
+        if($child){
+            $return = '';
+            switch($scenario){
+                case "Child":
+                    $return = Url::to(['child/update','id'=>$child_id]);
+                    break;
+                case "Consent":
+                    $return = Url::to(['consent/update','id'=>$child->fk_consent]);
+                    break;
+                case "Eligibility":
+                    $consent = Consent::findOne($child->fk_consent);
+                    if($consent){
+                        $elig = Eligibility::findOne($consent->fk_eligibilty_id);
+                        if($elig){
+                            $return = Url::to(['eligibility/update','id'=>$elig->id]);
+                        }
+                    }
+                    break;
+                case "NeedAssessment":
+                    
+                    $return = Url::to(['need-assessment/index','fk_child'=>$child_id]);
+                    break;
+                case "ChildSibling":
+                    $return = Url::to(['child-sibling/index','fk_child'=>$child_id]);
+                    break;
+                case "ChildSchool":
+                    $return = Url::to(['child-school/index','fk_child'=>$child_id]);
+                    break;
+                case "HomeVisit":
+                    $return = Url::to(['home-visit/index','fk_child'=>$child_id]);
+                    break;
+                case "SchoolVisit":
+                    $return = Url::to(['school-visit/index','fk_child'=>$child_id]);
+                    break;
+                default:
+                    $return = false;
+                    break;
+            }
+
+            return $return;
+        }
+    }
+
+    
 }

@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use app\utilities\DataHelper;
 use yii\web\Response;
 use yii\helpers\Url;
-
+ 
 /**
  * HomeVisitController implements the CRUD actions for HomeVisit model.
  */
@@ -67,25 +67,25 @@ class HomeVisitController extends Controller
      */
     public function actionCreate()
     {
+        $keyword = "home-visit";
         $model = new HomeVisit();
         $dh = new DataHelper;
-        $model->load(Yii::$app->request->post());
-   
-        if ( $model->save()) { 
-            //return $this->redirect(['view', 'id' => $model->id]);
-            if (Yii::$app->request->isAjax)
-            {   
-                #return json_encode($this->renderAjax('update', ['model' => $model]));
-                $model->afterFind();
-                return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
             }
-        } else {
+        }
+         else {
             if (Yii::$app->request->isAjax)
             {
                 return $dh->processResponse($this, $model, $keyword, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
             }
             else{
-                return $this->render('update', [
+                return $this->render('create', [
                     'model' => $model,
                 ]);
             }
@@ -99,18 +99,32 @@ class HomeVisitController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $keyword = "home-visit")
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $dh = new DataHelper;
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
+            }
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else {
+            if (Yii::$app->request->isAjax)
+            {
+                return $dh->processResponse($this, $model, $keyword, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
+            }
+            else{
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        }
     }
+
 
     /**
      * Deletes an existing HomeVisit model.

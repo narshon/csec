@@ -8,8 +8,11 @@ use app\models\SchoolSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\utilities\DataHelper;
+use yii\web\Response;
+use yii\helpers\Url;
 
-/**
+/** 
  * SchoolController implements the CRUD actions for School model.
  */
 class SchoolController extends Controller
@@ -64,15 +67,29 @@ class SchoolController extends Controller
      */
     public function actionCreate()
     {
+        $keyword = "school";
         $model = new School();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $dh = new DataHelper;
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
+            }
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+         else {
+            if (Yii::$app->request->isAjax)
+            {
+                return $dh->processResponse($this, $model, $keyword, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
+            }
+            else{
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
+        }
     }
 
     /**
@@ -82,19 +99,31 @@ class SchoolController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $keyword = "school")
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $dh = new DataHelper;
+        if($model->load(Yii::$app->request->post())){
+            if ( $model->save()) { 
+                if (Yii::$app->request->isAjax)
+                {   
+                    $model->afterFind();
+                    return $dh->processResponse($this, $model, $keyword, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+                }
+            }
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else {
+            if (Yii::$app->request->isAjax)
+            {
+                return $dh->processResponse($this, $model, $keyword, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
+            }
+            else{
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        }
     }
-
     /**
      * Deletes an existing School model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

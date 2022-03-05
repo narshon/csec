@@ -5,17 +5,19 @@ use yii\widgets\ActiveForm;
 
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Child */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+ 
+<?php   $id = isset($model->id)?$model->id:0; $keyword = "child"; ?>
+<div class="<?= $keyword ?>-form" id="<?= $keyword ?>-form-div-<?= $id ?>">
+    <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
+     <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-<div class="child-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'fk_consent')->textInput() ?>
+    <?= $form->field($model, 'fk_consent')->hiddenInput() ?>
 
     <?= $form->field($model, 'interview_date')->widget(DatePicker::className(),[
             'removeButton' => false,
@@ -289,7 +291,8 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'kesho_designation')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+         <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword]); ?>
+        <?= Html::submitButton('Save', ['class' =>'btn btn-success btn-create','onclick'=>"ajaxFormSubmit('$url','$keyword-form-div-$id','$keyword-form-$id',1); return false;"]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

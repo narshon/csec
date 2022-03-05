@@ -1,21 +1,22 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\Child;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\NeedAssessment */
 
-$this->title = 'Create Need Assessment';
-$this->params['breadcrumbs'][] = ['label' => 'Need Assessments', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="need-assessment-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+$child = Child::findOne($fk_child); 
+if($child){
+    $this->title = "Child Code: ". $child->fkConsent->fkEligibilty->child_code;
+    $fk_child = $child->id;
+}
+else{
+    $fk_child = NULL;
+}
+    
+?> 
+<?= $this->render("//site/updateboard", ['model'=>$model, 
+                 'form'=>"//need-assessment/_form",
+                 'form_name'=>"Need Assessment Form", 'model_name'=>"NeedAssessment",
+                 'fk_child'=>$fk_child]); ?>
