@@ -78,14 +78,12 @@ class NeedAssessmentController extends Controller
         $dh = new DataHelper;
         $model->fk_child = $fk_child;
 
-        if($model->load(Yii::$app->request->post())){
-            if ( $model->save()) { 
-                if (Yii::$app->request->isAjax)
-                {   
-                    $model->afterFind();
-                    #return $this->refresh();
-                    return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
-                }
+        if($model->load(Yii::$app->request->post()) && $model->save()){
+            if (Yii::$app->request->isAjax)
+            {   
+                $model->afterFind();
+                #return $this->refresh();
+                return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
             }
         }
          else {
@@ -113,13 +111,11 @@ class NeedAssessmentController extends Controller
     {
         $model = $this->findModel($id);
         $dh = new DataHelper;
-        if($model->load(Yii::$app->request->post())){
-            if ( $model->save()) { 
-                if (Yii::$app->request->isAjax)
-                {   
-                    $model->afterFind();
-                    return $dh->processResponse($this, $model, $view, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
-                }
+        if($model->load(Yii::$app->request->post()) && $model->save() ){
+            if (Yii::$app->request->isAjax)
+            {   
+                $model->afterFind();
+                return $dh->processResponse($this, $model, $view, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
             }
         }
         else {
@@ -145,9 +141,11 @@ class NeedAssessmentController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $fk_child = $model->fk_child;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'fk_child'=>$fk_child]);
     }
 
     /**

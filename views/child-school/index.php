@@ -3,37 +3,23 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Child;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ChildSchoolSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Child Schools';
-$this->params['breadcrumbs'][] = $this->title;
+
+$child = Child::findOne($fk_child); 
+if($child){
+    $this->title = "Child Code: ". $child->fkConsent->fkEligibilty->child_code;
+}
 ?>
-<div class="child-school-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Child School', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'fk_child',
-            'fk_school',
-            'class',
-            'stud_reg_no',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
-</div>
+<?= $this->render("//site/updateboard", ['model'=>$model, 
+                 'form'=>"//child-school/grid",
+                 'form_name'=>"Child School Form", 'model_name'=>"ChildSchool",
+                 'fk_child'=>$fk_child,
+                 'searchModel' => $searchModel,
+                 'dataProvider' => $dataProvider
+                 ]); ?>

@@ -3,19 +3,19 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\ChildSibling;
-use app\models\ChildSiblingSearch;
+use app\models\OtherSibling;
+use app\models\OtherSiblingSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\utilities\DataHelper;
 use yii\web\Response;
 use yii\helpers\Url;
- 
+
 /**
- * ChildSiblingController implements the CRUD actions for ChildSibling model.
+ * OtherSiblingController implements the CRUD actions for OtherSibling model.
  */
-class ChildSiblingController extends Controller
+class OtherSiblingController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -33,27 +33,22 @@ class ChildSiblingController extends Controller
     }
 
     /**
-     * Lists all ChildSibling models.
+     * Lists all OtherSibling models.
      * @return mixed
      */
-    public function actionIndex($fk_child = 0)
+    public function actionIndex()
     {
-        $searchModel = new ChildSiblingSearch();
+        $searchModel = new OtherSiblingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere("fk_child = $fk_child");
 
-        $model = ChildSibling::find()->where(['fk_child'=>$fk_child])->one();
-        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'fk_child' => $fk_child,
-            'model' =>$model
         ]);
     }
 
     /**
-     * Displays a single ChildSibling model.
+     * Displays a single OtherSibling model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -66,24 +61,22 @@ class ChildSiblingController extends Controller
     }
 
     /**
-     * Creates a new ChildSibling model.
+     * Creates a new OtherSibling model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($fk_child=0)
+    public function actionCreate($fk_child = 0)
     {
-        $model = new ChildSibling();
-        $keyword = 'child-sibling';
+        $keyword = "other-sibling";
+        $model = new OtherSibling();
         $dh = new DataHelper;
         $model->fk_child = $fk_child;
-        
-        if($model->load(Yii::$app->request->post())){
-            if ( $model->save()) { 
-                if (Yii::$app->request->isAjax)
-                {   
-                    $model->afterFind();
-                    return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
-                }
+
+        if($model->load(Yii::$app->request->post()) && $model->save()){
+            if (Yii::$app->request->isAjax)
+            {   
+                $model->afterFind();
+                return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
             }
         }
          else {
@@ -101,27 +94,29 @@ class ChildSiblingController extends Controller
     }
 
     /**
-     * Updates an existing ChildSibling model.
+     * Updates an existing OtherSibling model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id, $keyword='update', $view_file='_form')
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
         $dh = new DataHelper;
-        if($model->load(Yii::$app->request->post()) && $model->save()){
-                if (Yii::$app->request->isAjax)
-                {   
-                    $model->afterFind();
-                    return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
-                }
-        }
-        else {
+        $keyword = 'other-sibling';
+
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //return $this->redirect(['view', 'id' => $model->id]);
+            if (Yii::$app->request->isAjax)
+            {   
+                return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+            }
+        } else {
             if (Yii::$app->request->isAjax)
             {
-                return $dh->processResponse($this, $model, '_form', 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
+                return $dh->processResponse($this, $model, '_form', 'danger', 'Please fix the below errors!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
             }
             else{
                 return $this->render('update', [
@@ -132,7 +127,7 @@ class ChildSiblingController extends Controller
     }
 
     /**
-     * Deletes an existing ChildSibling model.
+     * Deletes an existing OtherSibling model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -144,19 +139,19 @@ class ChildSiblingController extends Controller
         $fk_child = $model->fk_child;
         $model->delete();
 
-        return $this->redirect(['index', 'fk_child'=>$fk_child]);
+        return $this->redirect(['//need-assessment/index', 'fk_child'=>$fk_child]);
     }
 
     /**
-     * Finds the ChildSibling model based on its primary key value.
+     * Finds the OtherSibling model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ChildSibling the loaded model
+     * @return OtherSibling the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ChildSibling::findOne($id)) !== null) {
+        if (($model = OtherSibling::findOne($id)) !== null) {
             return $model;
         }
 

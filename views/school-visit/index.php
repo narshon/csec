@@ -3,54 +3,23 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Child;
+
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\SchoolVisitSearch */
+/* @var $searchModel app\models\HomeVisitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'School Visits';
-$this->params['breadcrumbs'][] = $this->title;
+
+$child = Child::findOne($fk_child); 
+if($child){
+    $this->title = "Child Code: ". $child->fkConsent->fkEligibilty->child_code;
+}
 ?>
-<div class="school-visit-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create School Visit', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'fk_child',
-            'visit_date',
-            'school_attendance',
-            'reg_days_no',
-            //'irreg_days_no',
-            //'irreg_reasons:ntext',
-            //'class_particip',
-            //'passive_particip_reasons:ntext',
-            //'student_dressing:ntext',
-            //'academic_perfom:ntext',
-            //'academic_perform_report',
-            //'extra_curr_act',
-            //'discipline_level',
-            //'discipline_why:ntext',
-            //'outstanding_act:ntext',
-            //'area_concern:ntext',
-            //'follow_up:ntext',
-            //'student_comment:ntext',
-            //'teacher_comment:ntext',
-            //'staff_name',
-            //'staff_designation',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
-</div>
+<?= $this->render("//site/updateboard", ['model'=>$model, 
+                 'form'=>"//school-visit/grid",
+                 'form_name'=>"School Visit Form", 'model_name'=>"SchoolVisit",
+                 'fk_child'=>$fk_child,
+                 'searchModel' => $searchModel,
+                 'dataProvider' => $dataProvider
+                 ]); ?>

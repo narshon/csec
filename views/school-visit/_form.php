@@ -11,9 +11,10 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="school-visit-form">
-
-    <?php $form = ActiveForm::begin(); ?>
+<?php   $id = isset($model->id)?$model->id:0; $keyword = "school-visit"; ?>
+<div class="<?= $keyword ?>-form" id="<?= $keyword ?>-form-div-<?= $id ?>">
+    <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
+     <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
     <?= $form->field($model, 'fk_child')->textInput() ?>
 
@@ -58,7 +59,8 @@ use yii\helpers\Url;
     <?= $form->field($model, 'staff_designation')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+         <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword]); ?>
+        <?= Html::submitButton('Save', ['class' =>'btn btn-success btn-create','onclick'=>"ajaxFormSubmit('$url','$keyword-form-div-$id','$keyword-form-$id',1); return false;"]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

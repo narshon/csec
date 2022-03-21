@@ -112,7 +112,7 @@ class Eligibility extends \yii\db\ActiveRecord
         
     }
 
-    public function getChildCode($fk_consent){
+    public static function getChildCode($fk_consent){
         $consent = Consent::findOne($fk_consent);
         if($consent){
             #find the elgibility model for this child
@@ -123,7 +123,7 @@ class Eligibility extends \yii\db\ActiveRecord
         }
 
     }
-    public function getEligibilityDate($fk_consent){
+    public static function getEligibilityDate($fk_consent){
         $consent = Consent::findOne($fk_consent);
         if($consent){
             #find the elgibility model for this child

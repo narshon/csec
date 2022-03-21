@@ -281,7 +281,7 @@ class Child extends \yii\db\ActiveRecord
 
     }
 
-    public function secondaryMenu($scenario, $child_id){
+    public static function secondaryMenu($scenario, $child_id){
         
         $child = Self::findOne($child_id);
         if($child){

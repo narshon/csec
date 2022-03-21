@@ -31,7 +31,7 @@ use yii\helpers\Url;
             'alive_status',
             //'mother',
             //'father',
-
+            
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

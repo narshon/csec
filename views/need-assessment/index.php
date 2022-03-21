@@ -12,10 +12,6 @@ $this->title = 'Need Assessments';
 $child = Child::findOne($fk_child); 
 if($child){
     $this->title = "Child Code: ". $child->fkConsent->fkEligibilty->child_code;
-    $fk_child = $child->id;
-}
-else{
-    $fk_child = NULL;
 }
 ?>
 <?= $this->render("//site/updateboard", ['model'=>$model, 
