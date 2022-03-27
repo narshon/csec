@@ -18,21 +18,78 @@ use yii\helpers\Url;
 
     <div class="panel panel-info half pull-left">
 
-        <?= $form->field($model, 'consent_edu')->textInput(['size'=>50]) ?>
-
-        <?= $form->field($model, 'consent_legal')->textInput(['size'=>50]) ?>
-
-        <?= $form->field($model, 'consent_disability')->textInput(['size'=>50]) ?>
-
-        <?= $form->field($model, 'consent_psycho')->textInput(['size'=>50]) ?>
-
-        <?= $form->field($model, 'consent_comm')->textInput(['size'=>50]) ?>
-
-        <?= $form->field($model, 'consent_health')->textInput(['size'=>50]) ?>
-
-        <?= $form->field($model, 'consent_livelihood')->textInput(['size'=>50]) ?>
-
-        <?= $form->field($model, 'consent_family')->textInput(['size'=>50]) ?>
+        <?php 
+            echo $form->field($model, 'consent_edu')->widget(Select2::classname(), [
+                'data' => \app\models\Lookup::getLookupValues('YESNO'),
+                'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); 
+        ?>
+        <?php 
+            echo $form->field($model, 'consent_legal')->widget(Select2::classname(), [
+                'data' => \app\models\Lookup::getLookupValues('YESNO'),
+                'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); 
+        ?>
+        <?php 
+            echo $form->field($model, 'consent_disability')->widget(Select2::classname(), [
+                'data' => \app\models\Lookup::getLookupValues('YESNO'),
+                'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); 
+        ?>
+        <?php 
+            echo $form->field($model, 'consent_psycho')->widget(Select2::classname(), [
+                'data' => \app\models\Lookup::getLookupValues('YESNO'),
+                'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); 
+        ?>
+        <?php 
+            echo $form->field($model, 'consent_comm')->widget(Select2::classname(), [
+                'data' => \app\models\Lookup::getLookupValues('YESNO'),
+                'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); 
+        ?>
+        <?php 
+            echo $form->field($model, 'consent_health')->widget(Select2::classname(), [
+                'data' => \app\models\Lookup::getLookupValues('YESNO'),
+                'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); 
+        ?>
+        <?php 
+            echo $form->field($model, 'consent_livelihood')->widget(Select2::classname(), [
+                'data' => \app\models\Lookup::getLookupValues('YESNO'),
+                'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); 
+        ?>
+        <?php 
+            echo $form->field($model, 'consent_family')->widget(Select2::classname(), [
+                'data' => \app\models\Lookup::getLookupValues('YESNO'),
+                'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]); 
+        ?>
     </div>
     
     <div class="panel panel-info half pull-left">

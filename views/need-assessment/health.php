@@ -16,24 +16,63 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-    
-     <?= $form->field($model, 'current_health_condition')->textInput() ?>
+     <?php 
+        echo $form->field($model, 'current_health_condition')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'curr_health_cond_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'chronic_health_cond')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'chronic_health_cond')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'chhronic_health_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'current_medication')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'current_medication')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'current_medication_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'immunized')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'immunized')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'immunized_reason')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'allergy')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'allergy')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'allergy_spec')->textInput(['maxlength' => true]) ?>
 

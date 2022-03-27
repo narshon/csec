@@ -17,31 +17,27 @@ use yii\helpers\Url;
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
        
-     <?= $form->field($model, 'parent_alive')->widget(Select2::classname(), [
-        'data' => ['1' => 'Yes','0' =>'No'],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+    <?php 
+        echo $form->field($model, 'parent_alive')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'who_alive')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'stay_together')->widget(Select2::classname(), [
-        'data' => ['1' => 'Yes','0' =>'No'],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+    
+    <?php 
+        echo $form->field($model, 'stay_together')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'fwife_number')->textInput() ?>
 

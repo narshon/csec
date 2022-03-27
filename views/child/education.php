@@ -15,17 +15,15 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-     <?= $form->field($model, 'child_school_attendance')->widget(Select2::classname(), [
-        'data' => ['1' => 'Regular','2' =>'Not Regular','3' =>'Never went to school'],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+     <?php 
+        echo $form->field($model, 'child_school_attendance')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('child_school_attendance'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'not_regular_reason')->textarea(['rows' => 6]) ?>   
         

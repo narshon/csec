@@ -17,6 +17,15 @@ use yii\helpers\Url;
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
      <?= $form->field($model, 'family_marriage_status')->textInput() ?>
+     <?php 
+        echo $form->field($model, 'family_marriage_status')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('family_marriage_status'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'family_reason_separation')->textInput(['maxlength' => true]) ?>
 

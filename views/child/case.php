@@ -21,47 +21,38 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'exploit_happen_when')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'exploit_continue')->widget(Select2::classname(), [
-        'data' => ['1' => 'Yes','0' =>'No'],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+    <?php 
+        echo $form->field($model, 'exploit_continue')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'exploit_month')->textInput() ?>
 
     <?= $form->field($model, 'exploit_year')->textInput() ?>
-
-    <?= $form->field($model, 'exploit_reported')->widget(Select2::classname(), [
-        'data' => ['1' => 'Yes','0' =>'No'],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
-
-    <?= $form->field($model, 'exploit_reported_to')->widget(Select2::classname(), [
-        'data' => ['family member' => 'Family member','community focal person' =>'Community Focal person',
-        'religious leader' =>'Religious leaders','teacher' =>'Teachers','department of children services' =>'Department of Children services',
-        'other' =>'Other',],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+    
+    <?php 
+        echo $form->field($model, 'exploit_reported')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?php 
+        echo $form->field($model, 'exploit_reported_to')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('exploit_reported_to'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'exploit_rpt_to_spec')->textarea(['rows' => 6]) ?>
 

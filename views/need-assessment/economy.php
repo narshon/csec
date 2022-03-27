@@ -18,11 +18,27 @@ use yii\helpers\Url;
 
      <?= $form->field($model, 'economic_activity_household')->textInput() ?>
 
-    <?= $form->field($model, 'employment_type')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'employment_type')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'income_month')->textInput() ?>
 
-    <?= $form->field($model, 'fin_mat_support_outside')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'fin_mat_support_outside')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'fin_mat_support_out_spec')->textInput(['maxlength' => true]) ?>
 

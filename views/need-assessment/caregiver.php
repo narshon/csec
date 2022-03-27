@@ -16,15 +16,39 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-     <?= $form->field($model, 'conflict_family')->textInput() ?>
+     <?php 
+        echo $form->field($model, 'conflict_family')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'conflict_family_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'mental_health_concern')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'mental_health_concern')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'mental_health_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'family_sig_life_event')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'family_sig_life_event')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'family_sig_life_spec')->textInput(['maxlength' => true]) ?>
 
@@ -35,10 +59,27 @@ use yii\helpers\Url;
     <?= $form->field($model, 'children_caregiver_relation')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'children_caregiver_confide')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'children_caregiver_confide')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'children_caregiver_confide_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'children_caregiver_comfort')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'children_caregiver_comfort')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'children_caregiver_comfort_spec')->textInput(['maxlength' => true]) ?>
 
@@ -46,7 +87,15 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'children_caregiver_react_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'children_caregiver_time')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'children_caregiver_time')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'children_caregiver_time_spec')->textInput(['maxlength' => true]) ?>
 
@@ -56,15 +105,48 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'children_caregiver_misbehaviour')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'children_caregiver_free')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'children_caregiver_free')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
-    <?= $form->field($model, 'children_caregiver_decision')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'children_caregiver_decision')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
-    <?= $form->field($model, 'child_curr_caregiver_attach')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'child_curr_caregiver_attach')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('child_curr_caregiver_attach'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'curr_caregiver_relation')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'child_prev_caregiver_attach')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'child_prev_caregiver_attach')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('child_prev_caregiver_attach'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'child_prev_caregiver_relation')->textInput(['maxlength' => true]) ?>
 

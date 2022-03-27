@@ -16,19 +16,66 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-     <?= $form->field($model, 'education_facilities')->textInput() ?>
+     <?php 
+        echo $form->field($model, 'education_facilities')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
-    <?= $form->field($model, 'school_type')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'school_type')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('school_type'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'school_unique_needs')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'school_unique_needs')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'school_unique_needs_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'school_household_attending')->textInput() ?>
-
-    <?= $form->field($model, 'school_household_capacity')->textInput() ?>
-
-    <?= $form->field($model, 'education_caregiver_interest')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'school_household_attending')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?php 
+        echo $form->field($model, 'school_household_capacity')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?php 
+        echo $form->field($model, 'education_caregiver_interest')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <div class="form-group">
          <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword, 'view'=>$view_file]); ?>

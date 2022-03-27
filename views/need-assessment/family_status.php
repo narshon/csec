@@ -18,15 +18,52 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'fk_child')->textInput() ?>
 
+    <?= $form->field($model, 'mother')->textInput(['maxlength' => true])->label("Mother Names") ?>
+
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'alive_status')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'alive_status')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNOUNKNOWN'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
-    <?= $form->field($model, 'mother')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'father')->textInput(['maxlength' => true])->label("Father Names") ?>
 
-    <?= $form->field($model, 'father')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'parent_stay_together')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?= $form->field($model, 'mother_county')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'mother_subcounty')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'mother_loc')->textInput(['maxlength' => true])->label("Mother Location") ?>
+
+    <?= $form->field($model, 'mother_sub_loc')->textInput(['maxlength' => true])->label("Mother Sublocation") ?>
+
+    <?= $form->field($model, 'mother_village')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'father_county')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'father_subcounty')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'father_loc')->textInput(['maxlength' => true])->label("Father Location") ?>
+
+    <?= $form->field($model, 'father_subloc')->textInput(['maxlength' => true])->label("Father Sublocation") ?>
+
+    <?= $form->field($model, 'father_village')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
          <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword, 'view'=>$view_file]); ?>

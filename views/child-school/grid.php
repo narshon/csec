@@ -7,7 +7,15 @@ use app\utilities\DataHelper;
 use yii\helpers\Url;
 ?>
 
-<div class="child-school-index">
+<ul class="nav nav-tabs">
+
+  <li class="active"><a data-toggle="tab" href="#child-school">Child School</a></li>
+  <li><a data-toggle="tab" href="#schools-list">Schools List</a></li>
+
+</ul>
+
+<div class="tab-content">
+    <div id="child-school" class="child-school-index tab-pane fade in active">
 
     <?php Pjax::begin(['id'=>'pjax-child-school']); ?>
     <p>
@@ -15,7 +23,7 @@ use yii\helpers\Url;
             $dh = new DataHelper();
             $url = Url::to(['child-school/create', 'fk_child'=>$fk_child]);
             echo $dh->getModalButton(new \app\models\ChildSchool(), 'create', "Add Child School", 'btn btn-primary pull-right btn-beneficiary','Add Child School',$url);
-       ?>
+    ?>
     </p>
 
     <?= GridView::widget([
@@ -33,7 +41,7 @@ use yii\helpers\Url;
             ['class' => 'yii\grid\ActionColumn',
             'template' => '{update}{delete}',
             'buttons' => [
-                           
+                        
                     'update' => function ($url, $model, $keyword) {
                             $dh = new DataHelper();
                             $url = Url::to(['//child-school/update', 'id'=>$model->id, 'view_file'=>'_form']);
@@ -49,10 +57,15 @@ use yii\helpers\Url;
                                 ],
                             ]);
                     },
-                   ], 
-           ],
+                ], 
+        ],
         ],
     ]); ?>
 
     <?php Pjax::end(); ?>
+    </div>
+    <div id="schools-list" class="tab-pane fade">
+        <?= $this->render("list"); ?>
+    </div>
 </div>
+

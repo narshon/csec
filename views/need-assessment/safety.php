@@ -16,13 +16,44 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-     <?= $form->field($model, 'signs_of_violence')->textarea(['rows' => 6]) ?>
+     <?php 
+        echo $form->field($model, 'signs_of_violence')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?php 
+        echo $form->field($model, 'family_abuse')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
-    <?= $form->field($model, 'family_abuse')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'community_abuse')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'admin_office')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'community_abuse')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    
+    <?php 
+        echo $form->field($model, 'admin_office')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'household_condition')->textInput(['maxlength' => true]) ?>
 

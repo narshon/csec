@@ -15,7 +15,7 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-    <?= $form->field($model, 'fk_child')->textInput() ?>
+    <?= $form->field($model, 'fk_child')->hiddenInput()->label("") ?>
 
     <?= $form->field($model, 'name_sibling')->textInput(['maxlength' => true]) ?>
 

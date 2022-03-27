@@ -18,18 +18,75 @@ use yii\helpers\Url;
 
      <?= $form->field($model, 'fmember_income_no')->textInput() ?>
 
-     <?= $form->field($model, 'fmember_income_sources')->textInput() ?>
+     <?php
+        use app\models\Income;
+        use app\models\IncomeSearch;
 
-    <?= $form->field($model, 'income_regularity')->textInput() ?>
+        $searchModel = new IncomeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere("fk_child = $model->id");
 
-    <?= $form->field($model, 'household_indebt')->textInput() ?>
+    ?>
+    <?= $this->render("//income/index", [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+        'fk_child' => $model->id
+    ]); ?>
+     <?php 
+        echo $form->field($model, 'fmember_income_sources')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('fmember_income_sources'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?php 
+        echo $form->field($model, 'income_regularity')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('income_regularity'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?php 
+        echo $form->field($model, 'household_indebt')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('household_indebt'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?php 
+        echo $form->field($model, 'household_assets')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('household_assets'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
-    <?= $form->field($model, 'household_assets')->textInput() ?>
-
-    <?= $form->field($model, 'household_tools')->textInput() ?>
-
-    <?= $form->field($model, 'hhold_educ_level')->textInput(['maxlength' => true]) ?>
-
+    <?php 
+        echo $form->field($model, 'household_tools')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('household_tools'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    <?php 
+        echo $form->field($model, 'hhold_educ_level')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('hhold_educ_level'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
         
 
 

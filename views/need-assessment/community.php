@@ -16,13 +16,37 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-     <?= $form->field($model, 'community_culture_connect')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'community_culture_connect')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
-    <?= $form->field($model, 'family_social_connect')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'family_social_connect')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'social_connect_example')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'family_close_prox')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'family_close_prox')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'family_relation_extended')->textarea(['rows' => 6]) ?>
 
@@ -30,7 +54,15 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'acceptance_level_child')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'local_leader')->textInput(['maxlength' => true]) ?>
+    <?php 
+        echo $form->field($model, 'local_leader')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <div class="form-group">
          <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword, 'view'=>$view_file]); ?>

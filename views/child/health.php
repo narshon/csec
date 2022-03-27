@@ -16,44 +16,38 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-     <?= $form->field($model, 'meal_per_day')->widget(Select2::classname(), [
-        'data' => ['1' => '1 in a day','2' =>'2 in a day','3' =>'3 in a day',
-                   '4' =>'Sometimes goes without food',],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+     <?php 
+        echo $form->field($model, 'meal_per_day')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('meal_per_day'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
-    <?= $form->field($model, 'child_chronic_ill')->widget(Select2::classname(), [
-        'data' => ['yes' => 'Yes','no' =>'No'],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+    <?php 
+        echo $form->field($model, 'child_chronic_ill')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'child_chronic_ill_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fmember_chronic_ill')->widget(Select2::classname(), [
-        'data' => ['1' => 'Yes','0' =>'No'],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+    <?php 
+        echo $form->field($model, 'fmember_chronic_ill')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
+    
 
     <?= $form->field($model, 'fmember_chronic_ill_spec')->textInput(['maxlength' => true]) ?>  
         

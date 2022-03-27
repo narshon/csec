@@ -26,18 +26,15 @@ use yii\helpers\Url;
                 'format' => 'yyyy-mm-dd'
             ]
     ]) ?>
-
-    <?= $form->field($model, 'child_support_other')->widget(Select2::classname(), [
-        'data' => ['1' => 'Yes','0' =>'No'],
-        'options' => [
-            'placeholder' => 'Select...',
-            'multiple' => false,
-            'disabled' => false,
-        ],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]) ?>
+    <?php 
+        echo $form->field($model, 'child_support_other')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'child_support_org')->textInput(['maxlength' => true]) ?>
 
