@@ -13,14 +13,28 @@ use yii\helpers\Url;
 
 <?php   $id = isset($model->id)?$model->id:0; $keyword = "school-visit"; ?>
 <div class="<?= $keyword ?>-form" id="<?= $keyword ?>-form-div-<?= $id ?>">
-    <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
+    <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id, 'options' => ['enctype' => 'multipart/form-data']]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
     <?= $form->field($model, 'fk_child')->hiddenInput()->label("") ?>
 
-    <?= $form->field($model, 'visit_date')->textInput() ?>
+    <?= $form->field($model, 'visit_date')->widget(DatePicker::className(),[
+            'removeButton' => false,
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+    ]) 
+    ?>
 
-    <?= $form->field($model, 'school_attendance')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'school_attendance')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('school_attendance'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);  ?>
 
     <?= $form->field($model, 'reg_days_no')->textInput() ?>
 
@@ -36,7 +50,7 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'academic_perfom')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'academic_perform_report')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'academic_perform_report')->fileInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'extra_curr_act')->textInput(['maxlength' => true]) ?>
 
@@ -59,8 +73,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'staff_designation')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-         <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword]); ?>
-        <?= Html::submitButton('Save', ['class' =>'btn btn-success btn-create','onclick'=>"ajaxFormSubmit('$url','$keyword-form-div-$id','$keyword-form-$id',1); return false;"]) ?>
+        <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

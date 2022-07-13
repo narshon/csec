@@ -8,5 +8,5 @@ use yii\helpers\Url;
 
 $this->title = "Child Code: ". $model->fkConsent->fkEligibilty->child_code;
 ?>
-<?= $this->render("//site/updateboard", ['model'=>$model, 'form'=>"//Child/tabs",
+<?= $this->render("//site/updateboard", ['model'=>$model, 'form'=>"//child/tabs",
             'form_name'=>"Identification Tool", 'model_name'=>"Child", 'fk_child'=>$model->id]); ?>

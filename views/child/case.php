@@ -19,7 +19,14 @@ use yii\helpers\Url;
      <?= $form->field($model, 'sex_exploit')->textarea(['rows' => 6]) ?>
 
 
-    <?= $form->field($model, 'exploit_happen_when')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'exploit_happen_when')->widget(DatePicker::className(),[
+            'removeButton' => false,
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+    ]) ?>
 
     <?php 
         echo $form->field($model, 'exploit_continue')->widget(Select2::classname(), [

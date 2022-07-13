@@ -16,7 +16,7 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-     <?= $form->field($model, 'family_marriage_status')->textInput() ?>
+
      <?php 
         echo $form->field($model, 'family_marriage_status')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('family_marriage_status'),

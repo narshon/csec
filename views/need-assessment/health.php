@@ -76,7 +76,7 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'allergy_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'feed_special_needs')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'feed_special_needs')->textArea(['maxlength' => true]) ?>
 
     <div class="form-group">
          <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword, 'view'=>$view_file]); ?>

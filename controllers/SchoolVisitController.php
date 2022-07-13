@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\utilities\DataHelper;
 use yii\web\Response;
 use yii\helpers\Url;
+use yii\web\UploadedFile;
 
 /** 
  * SchoolVisitController implements the CRUD actions for SchoolVisit model.
@@ -77,27 +78,29 @@ class SchoolVisitController extends Controller
         $dh = new DataHelper;
         $model->fk_child = $fk_child;
 
-        if($model->load(Yii::$app->request->post())){
-            if ( $model->save()) { 
-                if (Yii::$app->request->isAjax)
-                {   
-                    $model->afterFind();
-                    return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
-                }
+        if($model->load(Yii::$app->request->post()) && $model->save()){
+            
+            #process file upload
+            Yii::$app->params['uploadPath'] = Yii::$app->basePath.'\\web\\docs\\';
+            $model->academic_perform_report = UploadedFile::getInstance($model, 'academic_perform_report');
+
+            if($model->academic_perform_report){ print("Here"); exit;
+                $file_name = $model->academic_perform_report->baseName . '.' . $model->academic_perform_report->extension;
+                $model->academic_perform_report->saveAs(Yii::$app->params['uploadPath'] . $file_name);
+                $model->academic_perform_report = $file_name;
+                $model->save();
             }
+           #echo "Hapa"; echo $model->id;  exit;
+            #'model' => $model, 'fk_child'=>$model->fk_child,
+            return $this->redirect([ 'update', 'id'=> $model->id ]);
+            
         }
-         else {
-            if (Yii::$app->request->isAjax)
-            {
-                return $dh->processResponse($this, $model, '_form', 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
-            }
-            else{
+        else {
+            
                 return $this->render('create', [
-                    'model' => $model,
-                    'fk_child' => $fk_child
+                    'model' => $model, 'fk_child'=>$model->fk_child
                 ]);
             }
-        }
     }
 
     /**
@@ -111,26 +114,30 @@ class SchoolVisitController extends Controller
     {
         $model = $this->findModel($id);
         $dh = new DataHelper;
+        
         if($model->load(Yii::$app->request->post()) && $model->save()){
-             
-            if (Yii::$app->request->isAjax)
-            {   
-                $model->afterFind();
-                return $dh->processResponse($this, $model, '_form', 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
+            
+            #process file upload
+            Yii::$app->params['uploadPath'] = Yii::$app->basePath.'\\web\\docs\\';
+            $model->academic_perform_report = UploadedFile::getInstance($model, 'academic_perform_report');
+            if($model->academic_perform_report){
+                $file_name = $model->academic_perform_report->baseName . '.' . $model->academic_perform_report->extension;
+                $model->academic_perform_report->saveAs(Yii::$app->params['uploadPath'] . $file_name);
+                $model->academic_perform_report = $file_name;
+                $model->save();
             }
+
+            return $this->render('update', [
+                'model' => $model, 'fk_child'=>$model->fk_child, 'id'=>$model->id
+            ]);
             
         }
         else {
-            if (Yii::$app->request->isAjax)
-            {
-                return $dh->processResponse($this, $model, '_form', 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
-            }
-            else{
+            
                 return $this->render('update', [
-                    'model' => $model,
+                    'model' => $model, 'fk_child'=>$model->fk_child, 'id'=>$model->id
                 ]);
             }
-        }
     }
 
     /**

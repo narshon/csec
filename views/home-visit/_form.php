@@ -18,7 +18,14 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'fk_child')->hiddenInput()->label("") ?>
 
-    <?= $form->field($model, 'home_visit_date')->textInput() ?>
+    <?= $form->field($model, 'home_visit_date')->widget(DatePicker::className(),[
+            'removeButton' => false,
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pluginOptions' => [
+                'autoclose'=>true,
+                'format' => 'yyyy-mm-dd'
+            ]
+    ])  ?>
 
     <?= $form->field($model, 'visit_no')->textInput() ?>
 

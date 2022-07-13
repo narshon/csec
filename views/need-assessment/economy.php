@@ -20,7 +20,7 @@ use yii\helpers\Url;
 
     <?php 
         echo $form->field($model, 'employment_type')->widget(Select2::classname(), [
-            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'data' => \app\models\Lookup::getLookupValues('employment_type'),
             'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
             'pluginOptions' => [
                 'allowClear' => true

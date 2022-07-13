@@ -31,9 +31,6 @@ use yii\helpers\Url;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'fk_child',
             'fk_school',
             'class',
             'stud_reg_no',

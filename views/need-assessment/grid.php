@@ -23,9 +23,6 @@ use yii\helpers\Url;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'fk_child',
             'location',
             'phone',
             'alive_status',

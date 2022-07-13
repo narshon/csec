@@ -1,10 +1,11 @@
 <?php
-
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
-use yii\helpers\Url;
+use kartik\depdrop\DepDrop;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Eligibility */
@@ -16,7 +17,8 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-     <?= $form->field($model, 'fk_consent')->hiddenInput()->label("") ?>
+    <?= $form->field($model, 'child_init')->textInput() ?>
+
 
     <?= $form->field($model, 'interview_date')->widget(DatePicker::className(),[
             'removeButton' => false,
@@ -42,7 +44,13 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'child_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'gender')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'gender')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('Gender'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);   ?>
 
     <?= $form->field($model, 'dob')->widget(DatePicker::className(),[
             'removeButton' => false,
@@ -60,13 +68,40 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'school_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'child_educ_level')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'child_educ_level')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('Level Education'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);  
+    ?>
 
-    <?= $form->field($model, 'class')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'class')->widget(DepDrop::classname(), [
+    'options'=>['placeholder' => 'Please Select ...', 'multiple' => false, 'id'=>'child-class-id'],
+    'pluginOptions'=>[
+        'depends'=>['child-child_educ_level'],
+        'placeholder'=>'Select...',
+        'url'=>Url::to(['/child/class'])
+        ]
+     ]); 
+    ?>
 
-    <?= $form->field($model, 'country')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'country')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('county'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ])->label("County");   ?>
 
-    <?= $form->field($model, 'sub_county')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sub_county')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('subcounty'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); ?>
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
 

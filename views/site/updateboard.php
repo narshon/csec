@@ -25,7 +25,6 @@ $dataProvider = isset($dataProvider)?$dataProvider:NULL;
             <li class="list-group-item"><a href="<?php echo Child::secondaryMenu("Consent", $fk_child);  ?>">Consent form </a></li>
             <li class="list-group-item"><a href="<?php echo Child::secondaryMenu("Child", $fk_child);  ?>">Child Details </a></li>
             <li class="list-group-item"><a href="<?php echo Child::secondaryMenu("NeedAssessment", $fk_child);  ?>">Needs Assessment </a></li>
-            <li class="list-group-item"><a href="<?php echo Child::secondaryMenu("ChildSibling", $fk_child);  ?>">Child Siblings </a></li>
             <li class="list-group-item"><a href="<?php echo Child::secondaryMenu("ChildSchool", $fk_child);  ?>">Child School </a></li>
             <li class="list-group-item"><a href="<?php echo Child::secondaryMenu("HomeVisit", $fk_child);  ?>">Home Visit </a></li>
             <li class="list-group-item"><a href="<?php echo Child::secondaryMenu("SchoolVisit", $fk_child);  ?>">School Visit </a></li>

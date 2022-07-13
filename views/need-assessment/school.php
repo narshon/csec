@@ -25,7 +25,9 @@ use yii\helpers\Url;
             ],
         ]); 
     ?>
-
+    
+    <?= $form->field($model, 'distance_school')->textInput() ?>
+    
     <?php 
         echo $form->field($model, 'school_type')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('school_type'),
@@ -36,7 +38,7 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'school_unique_needs')->textInput() ?>
+    
     <?php 
         echo $form->field($model, 'school_unique_needs')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('YESNO'),

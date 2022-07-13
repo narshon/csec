@@ -14,7 +14,8 @@ use yii\helpers\Url;
         <?php
             $dh = new DataHelper();
             $url = Url::to(['school-visit/create', 'fk_child'=>$fk_child]);
-            echo $dh->getModalButton(new \app\models\NeedAssessment(), 'create', "Add School Visit", 'btn btn-primary pull-right btn-beneficiary','Add School Visit',$url);
+            echo Html::a("Add School Visit", $url, ['class'=>'btn btn-primary pull-right btn-beneficiary'])
+            #echo $dh->getModalButton(new \app\models\NeedAssessment(), 'create', "Add School Visit", 'btn btn-primary pull-right btn-beneficiary','Add School Visit',$url);
        ?>
     </p>
 
@@ -23,9 +24,6 @@ use yii\helpers\Url;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'fk_child',
             'visit_date',
             'school_attendance',
             'reg_days_no',
@@ -34,10 +32,11 @@ use yii\helpers\Url;
             'template' => '{update}{delete}',
             'buttons' => [
                            
-                    'update' => function ($url, $model, $keyword) {
+                    'update' => function ($url, $model, $fk_child) {
                             $dh = new DataHelper();
-                            $url = Url::to(['//school-visit/update', 'id'=>$model->id, 'view_file'=>'_form']);
-                        return $dh->getModalButton(new \app\models\SchoolVisit(), "//school-visit/update", "Edit School Visit", 'glyphicon glyphicon-edit pull-right','',$url);
+                            $url = Url::to(['//school-visit/update', 'fk_child'=>$fk_child, 'id'=>$model->id, 'view_file'=>'_form']);
+                            return Html::a("", $url, ['class'=>'glyphicon glyphicon-edit pull-right']);
+                            #return $dh->getModalButton(new \app\models\SchoolVisit(), "//school-visit/update", "Edit School Visit", 'glyphicon glyphicon-edit pull-right','',$url);
 
                     },
                     'delete' => function ($url, $model, $keyword) {

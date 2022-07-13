@@ -36,6 +36,7 @@ class OtherSibling extends \yii\db\ActiveRecord
             [['name_sibling', 'nickname', 'location', 'edu_empl'], 'string', 'max' => 200],
             [['class'], 'string', 'max' => 50],
         ];
+        
     }
 
     /**

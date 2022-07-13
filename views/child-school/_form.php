@@ -16,9 +16,17 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-    <?= $form->field($model, 'fk_child')->textInput() ?>
+    <?= $form->field($model, 'fk_child')->hiddenInput()->label("") ?>
 
-    <?= $form->field($model, 'fk_school')->textInput() ?>
+    <?php 
+        echo $form->field($model, 'fk_school')->widget(Select2::classname(), [
+            'data' => \app\models\School::getLookupValues(),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); 
+    ?>
 
     <?= $form->field($model, 'class')->textInput(['maxlength' => true]) ?>
 

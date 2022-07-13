@@ -3,6 +3,7 @@
   <li><a data-toggle="tab" href="#education">Education</a></li>
   <li><a data-toggle="tab" href="#health">Health</a></li>
   <li><a data-toggle="tab" href="#family">Family</a></li>
+  <li><a data-toggle="tab" href="#sibling">Siblings</a></li>
   <li><a data-toggle="tab" href="#economy">Economy</a></li>
   <li><a data-toggle="tab" href="#case">Case</a></li>
   <li><a data-toggle="tab" href="#other">Other</a></li>
@@ -27,6 +28,10 @@
   <div id="family" class="tab-pane fade">
   <?= $this->render("family", ['model'=>$model,
             'form_name'=>"Family Details", 'model_name'=>"Child"]); ?>
+  </div>
+  <div id="sibling" class="tab-pane fade">
+  <?= $this->render("sibling", ['model'=>$model,
+            'form_name'=>"Siblings", 'model_name'=>"Child"]); ?>
   </div>
 
   <div id="economy" class="tab-pane fade">

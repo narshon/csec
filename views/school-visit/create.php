@@ -5,17 +5,9 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SchoolVisit */
+$this->title = "Child Code: ". $model->fkChild->fkConsent->fkEligibilty->child_code;
+?> 
+<?= $this->render("//site/updateboard", ['model'=>$model, 
+                 'form'=>"//school-visit/_form", 'fk_child'=>$model->fk_child,
+                 'form_name'=>"School Visit Form", 'model_name'=>"SchoolVisit"]); ?>
 
-$this->title = 'Create School Visit';
-$this->params['breadcrumbs'][] = ['label' => 'School Visits', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="school-visit-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>

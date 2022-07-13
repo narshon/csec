@@ -89,7 +89,7 @@ function ajaxFormSubmit(uri,div,form,show_wait, disable_pjax){
      $.ajax({
             type: "post",
             url:  uri,
-            data: $("#"+form).serialize(),
+            data: $("#"+form).serialize(), // new FormData( $("#"+form) ) 
             dataType: "json",
            beforeSend: function(x) {
               var wait;

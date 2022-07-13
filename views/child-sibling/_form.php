@@ -16,17 +16,23 @@ use yii\helpers\Url;
     <?php  $form = ActiveForm::begin(['id'=> $keyword.'-form-'.$id]); ?>
      <div id="<?= $keyword ?>-form-alert-<?= $id ?>"></div>
 
-    <?= $form->field($model, 'fk_child')->textInput() ?>
+    <?= $form->field($model, 'fk_child')->hiddenInput()->label("") ?>
 
     <?= $form->field($model, 's_order')->textInput() ?>
 
     <?= $form->field($model, 's_name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'occupation')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'class')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'age')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
          <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword]); ?>
-        <?= Html::submitButton('Save', ['class' =>'btn btn-success btn-create','onclick'=>"ajaxFormSubmit('$url','$keyword-form-div-$id','$keyword-form-$id',1); return false;"]) ?>
+        <?= Html::submitButton('Save', ['class' =>'btn btn-success btn-create','onclick'=>"ajaxFormSubmit('$url','$keyword-form-div-$id','$keyword-form-$id',1,1); return false;"]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

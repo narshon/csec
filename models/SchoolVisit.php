@@ -51,10 +51,11 @@ class SchoolVisit extends \yii\db\ActiveRecord
             [['fk_child', 'reg_days_no', 'irreg_days_no'], 'integer'],
             [['visit_date'], 'safe'],
             [['irreg_reasons', 'passive_particip_reasons', 'student_dressing', 'academic_perfom', 'discipline_why', 'outstanding_act', 'area_concern', 'follow_up', 'student_comment', 'teacher_comment'], 'string'],
-            [['school_attendance', 'class_particip', 'discipline_level', 'staff_name', 'staff_designation'], 'string', 'max' => 20],
+            [['school_attendance', 'class_particip', 'discipline_level'], 'string', 'max' => 20],
             [['academic_perform_report', 'extra_curr_act'], 'string', 'max' => 100],
+            [['staff_name', 'staff_designation'], 'string', 'max' => 200],
             [['fk_child'], 'exist', 'skipOnError' => true, 'targetClass' => Child::className(), 'targetAttribute' => ['fk_child' => 'id']],
-        ];
+        ]; 
     }
 
     /**

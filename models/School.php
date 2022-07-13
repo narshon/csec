@@ -29,7 +29,7 @@ class School extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['school_name', 'location'], 'string', 'max' => 20],
+            [['school_name', 'location'], 'string', 'max' => 200],
         ];
     }
 
@@ -51,5 +51,9 @@ class School extends \yii\db\ActiveRecord
     public function getChildSchools()
     {
         return $this->hasMany(ChildSchool::className(), ['fk_school' => 'id']);
+    }
+
+    public static function getLookupValues(){
+        return Self::find()->select(['school_name', 'id'])->indexBy('id')->column();
     }
 }

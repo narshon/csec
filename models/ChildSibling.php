@@ -12,6 +12,9 @@ use yii\helpers\Url;
  * @property int $s_order
  * @property string $s_name
  * @property string $occupation
+ * @property string $location
+ * @property string $class
+ * @property string $age
  *
  * @property Child $fkChild
  */
@@ -32,7 +35,7 @@ class ChildSibling extends \yii\db\ActiveRecord
     {
         return [
             [['fk_child', 's_order'], 'integer'],
-            [['s_name', 'occupation'], 'string', 'max' => 200],
+            [['s_name', 'occupation','location','class','age'], 'string', 'max' => 200],
             [['fk_child'], 'exist', 'skipOnError' => true, 'targetClass' => Child::className(), 'targetAttribute' => ['fk_child' => 'id']],
         ];
     }
@@ -44,10 +47,13 @@ class ChildSibling extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'fk_child' => 'Fk Child',
-            's_order' => 'S Order',
-            's_name' => 'S Name',
-            'occupation' => 'Occupation',
+            'fk_child' => 'Child',
+            's_order' => 'Sibling Order',
+            's_name' => 'Sibling Names',
+            'occupation' => 'Education / Occupation',
+            'location' => "Location",
+            'age' => "Age",
+            'class' => "Class"
         ];
     }
 

@@ -1,6 +1,5 @@
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#family_status">Family Status</a></li>
-  <li><a data-toggle="tab" href="#other_sibling">Siblings</a></li>
   <li><a data-toggle="tab" href="#health">Health</a></li>
   <li><a data-toggle="tab" href="#education">Education</a></li>
 
@@ -23,10 +22,6 @@
     <?= $this->render("family_status", ['model'=>$model,
             'form_name'=>"Family Status", 'model_name'=>"NeedAssessment"]); ?>
     </p>
-  </div>
-  <div id="other_sibling" class="tab-pane fade">
-  <?= $this->render("other_sibling", ['model'=>$model,
-      'form_name'=>"Other Siblings", 'model_name'=>"NeedAssessment"]); ?>
   </div>
   <div id="health" class="tab-pane fade">
   <?= $this->render("health", ['model'=>$model,

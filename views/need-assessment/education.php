@@ -19,7 +19,7 @@ use yii\helpers\Url;
      <?php 
         echo $form->field($model, 'prev_school_attended')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('prev_school_attended'),
-            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -31,7 +31,7 @@ use yii\helpers\Url;
     <?php 
         echo $form->field($model, 'current_school_attend')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('current_school_attend'),
-            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -41,16 +41,17 @@ use yii\helpers\Url;
     <?= $form->field($model, 'current_school_name')->textInput(['maxlength' => true]) ?>
 
     <?php 
-        echo $form->field($model, 'current_edu_level')->widget(Select2::classname(), [
+      /*  echo $form->field($model, 'current_edu_level')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('current_edu_level'),
             'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
             'pluginOptions' => [
                 'allowClear' => true
             ],
         ]); 
+        **/
     ?>
 
-    <?= $form->field($model, 'current_edu_level_class')->textInput(['maxlength' => true]) ?>
+    <?php # echo $form->field($model, 'current_edu_level_class')->textInput(['maxlength' => true]) ?>
     
 
     <div class="form-group">

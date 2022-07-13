@@ -105,16 +105,17 @@ class Child extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fk_consent', 'age', 'child_school_attendance', 'meal_per_day', 'fwife_number', 'sibling_no', 'sibling_order_9_15', 'sibling_order_16_20', 'sibling_order_21_25', 'sibling_order_26_30', 'sibling_order_31_35', 'sibling_order_35_above', 'father_contact', 'mother_contact', 'caregiver_contact', 'other_name_contact', 'fmember_income_no','fmember_income_sources', 'income_regularity', 'household_indebt', 'household_assets', 'household_tools', 'exploit_month', 'exploit_year', 'exploit_reported', 'exploit_reported_to', 'caregiver_interview_contact', 'kesho_staff_contact'], 'integer'],
+            [['fk_consent', 'age', 'child_school_attendance', 'meal_per_day', 'fwife_number', 'sibling_no', 'sibling_order_9_15', 'sibling_order_16_20', 'sibling_order_21_25', 'sibling_order_26_30', 'sibling_order_31_35', 'sibling_order_35_above', 'father_contact', 'mother_contact', 'caregiver_contact', 'other_name_contact', 'fmember_income_no', 'fmember_income_sources', 'income_regularity', 'household_indebt', 'household_assets', 'household_tools', 'exploit_month', 'exploit_year', 'exploit_reported', 'exploit_reported_to', 'caregiver_interview_contact', 'kesho_staff_contact'], 'integer'],
             [['interview_date', 'dob', 'caregiver_interview_date', 'kesho_staff_interview_date'], 'safe'],
-            [['child_support_service', 'not_regular_reason', 'sex_exploit', 'exploit_rpt_to_spec', 'exploit_notreported_reason', 'other_detail'], 'string'],
-            [['child_support_other', 'child_chronic_ill', 'fmember_chronic_ill', 'parent_alive', 'stay_together'], 'string', 'max' => 5],
-            [['child_support_org', 'disability', 'school_name', 'child_educ_level', 'country', 'sub_county', 'location', 'landmark', 'landmark_name', 'child_live_with', 'father_name', 'mother_name', 'caregiver_name', 'other_name', 'exploit_happen_when', 'exploit_continue', 'kesho_staff_name', 'kesho_designation'], 'string', 'max' => 20],
-            [['child_name', 'gender', 'class', 'who_alive', 'child_init', 'caregiver_interview_name'], 'string', 'max' => 10],
-            [['child_chronic_ill_spec', 'fmember_chronic_ill_spec'], 'string', 'max' => 50],
-            [['hhold_educ_level', 'child_code'], 'string', 'max' => 100],
+            [['child_support_other', 'child_support_service', 'not_regular_reason', 'child_chronic_ill_spec', 'fmember_chronic_ill_spec', 'sex_exploit', 'exploit_rpt_to_spec', 'exploit_notreported_reason', 'other_detail'], 'string'],
+            [['disability', 'child_educ_level', 'exploit_happen_when'], 'string', 'max' => 20],
+            [['child_name', 'school_name', 'country', 'sub_county', 'location', 'landmark', 'landmark_name', 'child_live_with', 'father_name', 'mother_name', 'caregiver_name', 'other_name', 'caregiver_interview_name', 'kesho_staff_name', 'kesho_designation', 'child_support_org'], 'string', 'max' => 200],
+            [['gender', 'class', 'exploit_continue', 'child_init'], 'string', 'max' => 10],
+            [['child_chronic_ill', 'fmember_chronic_ill', 'parent_alive', 'stay_together'], 'string', 'max' => 5],
+            [['who_alive'], 'string', 'max' => 50],
+            [['hhold_educ_level'], 'string', 'max' => 100],
             [['fk_consent'], 'exist', 'skipOnError' => true, 'targetClass' => Consent::className(), 'targetAttribute' => ['fk_consent' => 'id']],
-        ];
+        ]; 
     }
 
     /**
@@ -133,7 +134,7 @@ class Child extends \yii\db\ActiveRecord
             'gender' => 'Gender',
             'dob' => 'Dob',
             'age' => 'Age in years',
-            'disability' => 'If disabled differently',
+            'disability' => 'If abled differently',
             'school_name' => 'School Name',
             'child_educ_level' => 'Level of Education',
             'class' => 'Class/Form',
@@ -186,8 +187,8 @@ class Child extends \yii\db\ActiveRecord
             'exploit_rpt_to_spec' => 'If Other , Specify',
             'exploit_notreported_reason' => 'If No, why didnt child report the case to anyone?',
             'other_detail' => 'Any other details noted during interview',
-            'child_init' => 'Child Initials',
-            'caregiver_interview_name' => 'Caregiver Interview Name',
+            'child_init' => 'Respondent Details (Child Initials)',
+            'caregiver_interview_name' => 'Respondent Details(Caregiver)',
             'caregiver_interview_contact' => 'Contact of caregiver',
             'caregiver_interview_date' => 'Date caregiver gave information',
             'kesho_staff_name' => 'Kesho Kenya child protection staff detail',
@@ -271,6 +272,7 @@ class Child extends \yii\db\ActiveRecord
             }
             
         }
+        
 
         if($this->hasErrors()){
             return false;
@@ -325,6 +327,60 @@ class Child extends \yii\db\ActiveRecord
 
             return $return;
         }
+    }
+
+    public static function getClassOptions($cat_id){
+        $out = []; 
+        if ($cat_id == 1){
+            $out = [
+                ['id'=>1, 'name'=>"Class 1"],
+                ['id'=>2, 'name'=>"Class 2"],
+                ['id'=>3, 'name'=>"Class 3"],
+                ['id'=>4, 'name'=>"Class 4"],
+                ['id'=>5, 'name'=>"Class 5"],
+                ['id'=>6, 'name'=>"Class 6"],
+                ['id'=>7, 'name'=>"Class 7"],
+                ['id'=>8, 'name'=>"Class 8"]
+            ]; 
+        }
+        elseif($cat_id == 2){
+            $out = [
+                ['id'=>1, 'name'=>"Form 1"],
+                ['id'=>2, 'name'=>"Form 2"],
+                ['id'=>3, 'name'=>"Form 3"],
+                ['id'=>4, 'name'=>"Form 4"]
+            ];
+        }
+        elseif($cat_id == 3){
+            $out = [
+                ['id'=>1, 'name'=>"Year 1"],
+                ['id'=>2, 'name'=>"Year 2"]
+            ];
+        }
+        elseif($cat_id == 4){
+            $out = [
+                ['id'=>1, 'name'=>"Month 1"],
+                ['id'=>2, 'name'=>"Month 2"],
+                ['id'=>3, 'name'=>"Month 3"],
+                ['id'=>4, 'name'=>"Month 4"],
+                ['id'=>5, 'name'=>"Month 5"],
+                ['id'=>6, 'name'=>"Month 6"]
+
+            ];
+        }
+        elseif($cat_id == 5){
+            $out = [
+                ['id'=>1, 'name'=>"Year 1"],
+                ['id'=>2, 'name'=>"Year 2"],
+                ['id'=>3, 'name'=>"Year 3"],
+                ['id'=>4, 'name'=>"Year 4"]
+            ];
+        }
+        else{
+            $out = [];
+        }
+
+        return $out;
     }
 
     

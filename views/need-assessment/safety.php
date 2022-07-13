@@ -25,6 +25,8 @@ use yii\helpers\Url;
             ],
         ]); 
     ?>
+    <?php  echo  $form->field($model, 'signs_violence_specify')->textarea(['rows' => 6]) ?>
+    
     <?php 
         echo $form->field($model, 'family_abuse')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('YESNO'),
@@ -44,7 +46,7 @@ use yii\helpers\Url;
             ],
         ]); 
     ?>
-    
+    <?php  echo  $form->field($model, 'community_abuse_specify')->textarea(['rows' => 6]) ?>
     <?php 
         echo $form->field($model, 'admin_office')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('YESNO'),
@@ -55,9 +57,15 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'household_condition')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'household_condition')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'where_family_comm_live')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'where_family_comm_live')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('YESNO'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);  ?>
 
     <div class="form-group">
          <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword, 'view'=>$view_file]); ?>

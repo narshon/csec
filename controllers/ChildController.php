@@ -123,18 +123,19 @@ DOC;
         
 
         if($model->load(Yii::$app->request->post()) && $model->save()){
-             
+           #   echo "Here...";
             if (Yii::$app->request->isAjax)
             {   
                 
-
                 $model->afterFind();
                 return $dh->processResponse($this, $model, $view, 'success', 'Successfully Saved!', 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);                
             }
+            #echo "Hapa";
         }
         else {
             if (Yii::$app->request->isAjax)
             {
+                #echo "Huku";
                 return $dh->processResponse($this, $model, $view, 'danger', 'Please fix the below errors!'.print_r($model->getErrors(),true), 'pjax-'.$keyword, $keyword.'-form-alert-'.$model->id);   
             }
             else{
@@ -143,6 +144,21 @@ DOC;
                 ]);
             }
         }
+    }
+
+    public function actionClass() {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];
+                $out = Child::getClassOptions($cat_id);
+                
+                return ['output'=>$out, 'selected'=>''];
+            }
+        }
+        return ['output'=>$out, 'selected'=>''];
     }
 
     /**

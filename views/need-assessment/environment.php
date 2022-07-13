@@ -54,7 +54,6 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'member_chronic_illness')->textInput(['maxlength' => true]) ?>
     <?php 
         echo $form->field($model, 'member_chronic_illness')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('YESNO'),
@@ -150,7 +149,6 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'household_additional_support_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'rel_cult_health_access')->textInput() ?>
     <?php 
         echo $form->field($model, 'rel_cult_health_access')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('YESNO'),
@@ -163,11 +161,10 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'rel_cult_health_access_spec')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'community_services')->textInput() ?>
     <?php 
         echo $form->field($model, 'community_services')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('community_services'),
-            'options' => ['placeholder' => 'Please Select ...', 'multiple' => false],
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => true
             ],

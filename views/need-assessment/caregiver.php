@@ -26,7 +26,7 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'conflict_family_spec')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'conflict_family_spec')->textArea(['cols' => 6]) ?>
 
     <?php 
         echo $form->field($model, 'mental_health_concern')->widget(Select2::classname(), [
@@ -38,7 +38,7 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'mental_health_spec')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'mental_health_spec')->textArea(['cols' => 6]) ?>
 
     <?php 
         echo $form->field($model, 'family_sig_life_event')->widget(Select2::classname(), [
@@ -50,15 +50,14 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'family_sig_life_spec')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'family_sig_life_spec')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'pos_neg_events')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pos_neg_events')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'adults_relationship')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'adults_relationship')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'children_caregiver_relation')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'children_caregiver_relation')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'children_caregiver_confide')->textInput() ?>
     <?php 
         echo $form->field($model, 'children_caregiver_confide')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('YESNO'),
@@ -69,7 +68,7 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'children_caregiver_confide_spec')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'children_caregiver_confide_spec')->textArea(['cols' => 6]) ?>
 
     <?php 
         echo $form->field($model, 'children_caregiver_comfort')->widget(Select2::classname(), [
@@ -81,11 +80,11 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'children_caregiver_comfort_spec')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'children_caregiver_comfort_spec')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'children_caregiver_react')->textInput() ?>
+    <?= $form->field($model, 'children_caregiver_react')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'children_caregiver_react_spec')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'children_caregiver_react_spec')->textArea(['cols' => 6]) ?>
 
     <?php 
         echo $form->field($model, 'children_caregiver_time')->widget(Select2::classname(), [
@@ -97,13 +96,13 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'children_caregiver_time_spec')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'children_caregiver_time_spec')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'children_caregiver_communication')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'children_caregiver_communication')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'children_caregiver_encourage')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'children_caregiver_encourage')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'children_caregiver_misbehaviour')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'children_caregiver_misbehaviour')->textArea(['cols' => 6]) ?>
 
     <?php 
         echo $form->field($model, 'children_caregiver_free')->widget(Select2::classname(), [
@@ -135,9 +134,8 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'curr_caregiver_relation')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'curr_caregiver_relation')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'child_prev_caregiver_attach')->textInput(['maxlength' => true]) ?>
     <?php 
         echo $form->field($model, 'child_prev_caregiver_attach')->widget(Select2::classname(), [
             'data' => \app\models\Lookup::getLookupValues('child_prev_caregiver_attach'),
@@ -148,35 +146,29 @@ use yii\helpers\Url;
         ]); 
     ?>
 
-    <?= $form->field($model, 'child_prev_caregiver_relation')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'child_prev_caregiver_relation')->textArea(['cols' => 6]) ?>
+    
+    <?= $form->field($model, 'child_exhibit')->widget(Select2::classname(), [
+            'data' => \app\models\Lookup::getLookupValues('child_exhibit'),
+            'options' => ['placeholder' => 'Please Select ...', 'multiple' => true],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);  ?>
 
-    <?= $form->field($model, 'self_harm')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'behaviour_change')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'known_history_abuse')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'daily_routine')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'inaprop_sex_behaviour')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'independence')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'drug_abuse')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'like')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'abuse_symptom')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'dislike')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'emotional_distress')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fear')->textArea(['cols' => 6]) ?>
 
-    <?= $form->field($model, 'risk')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'behaviour_change')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'daily_routine')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'independence')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'like')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'dislike')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'fear')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'skill')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'skill')->textArea(['cols' => 6]) ?>
 
     <div class="form-group">
          <?php $url =  Url::to([$model->isNewRecord?'create':'update','id'=>$model->id, 'keyword'=>$keyword, 'view'=>$view_file]); ?>

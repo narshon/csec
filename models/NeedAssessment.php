@@ -86,13 +86,6 @@ use Yii;
  * @property string $curr_caregiver_relation
  * @property string $child_prev_caregiver_attach
  * @property string $child_prev_caregiver_relation
- * @property string $self_harm
- * @property string $known_history_abuse
- * @property string $inaprop_sex_behaviour
- * @property string $drug_abuse
- * @property string $abuse_symptom
- * @property string $emotional_distress
- * @property string $risk
  * @property string $behaviour_change
  * @property string $daily_routine
  * @property string $independence
@@ -176,14 +169,11 @@ class NeedAssessment extends \yii\db\ActiveRecord
     {
         return [
             [['fk_child', 'current_health_condition', 'chronic_health_cond', 'current_medication', 'immunized', 'allergy', 'prev_school_attended', 'current_school_attend', 'current_edu_level', 'child_friend_age', 'conflict_family', 'mental_health_concern', 'family_sig_life_event', 'children_caregiver_confide', 'children_caregiver_comfort', 'children_caregiver_react', 'children_caregiver_time', 'children_caregiver_free', 'children_caregiver_decision', 'family_marriage_status', 'difficulty_communicating', 'child_disability_care', 'household_additional_support', 'rel_cult_health_access', 'community_services', 'community_services_access', 'education_facilities', 'school_type', 'school_unique_needs', 'school_household_attending', 'school_household_capacity', 'education_caregiver_interest', 'economic_activity_household', 'employment_type', 'income_month', 'fin_mat_support_outside'], 'integer'],
-            [['child_friend_activity', 'signs_of_violence', 'family_abuse', 'community_abuse', 'where_family_comm_live', 'social_connect_example', 'family_relation_extended', 'family_relation_neighbor', 'acceptance_level_child', 'other_infor', 'support_needed', 'other'], 'string'],
-            [['location', 'feed_special_needs', 'prev_school', 'current_school_name', 'child_friend_views', 'child_friend_quality', 'conflict_family_spec', 'pos_neg_events', 'adults_relationship', 'children_caregiver_relation', 'children_caregiver_communication', 'children_caregiver_encourage', 'children_caregiver_misbehaviour', 'aditional_observ', 'family_reason_separation', 'family_placement_child', 'family_child_school', 'family_other_siblings_school', 'household_additional_support_spec', 'school_unique_needs_spec', 'assets_owned_family'], 'string', 'max' => 200],
-            [['phone', 'community_culture_connect', 'family_social_connect', 'family_close_prox', 'local_leader', 'meal_per_day', 'health_service', 'medical_insurance', 'member_chronic_illness'], 'string', 'max' => 20],
-            [['alive_status', 'parent_stay_together'], 'string', 'max' => 10],
-            [['mother', 'father', 'mother_county', 'mother_subcounty', 'mother_loc', 'mother_sub_loc', 'mother_village', 'father_county', 'father_subcounty', 'father_loc', 'father_subloc', 'father_village', 'curr_health_cond_spec', 'chhronic_health_spec', 'current_medication_spec', 'immunized_reason', 'allergy_spec', 'current_edu_level_class', 'mental_health_spec', 'family_sig_life_spec', 'children_caregiver_confide_spec', 'children_caregiver_comfort_spec', 'children_caregiver_react_spec', 'children_caregiver_time_spec', 'self_harm', 'known_history_abuse', 'inaprop_sex_behaviour', 'drug_abuse', 'abuse_symptom', 'emotional_distress', 'risk', 'behaviour_change', 'daily_routine', 'independence', 'like', 'dislike', 'fear', 'skill', 'strength_resource', 'need_concern', 'things_achieve', 'source_reliability', 'latrine', 'clean_water_access', 'home_environ', 'bath_arrangement', 'sanitary', 'which_member', 'chronic_illness_type', 'dificulty_seeing', 'difficulty_hearing', 'difficulty_walking', 'dificulty_remembering', 'dificulty_self_care', 'rel_cult_health_access_spec', 'fin_mat_support_out_spec', 'child_support', 'recomendation', 'case_worker_name', 'case_manager_name'], 'string', 'max' => 100],
-            [['admin_office', 'household_condition', 'child_curr_caregiver_attach', 'curr_caregiver_relation', 'child_prev_caregiver_attach', 'child_prev_caregiver_relation', 'food_variety_consumed', 'food_source'], 'string', 'max' => 50],
+            [['location', 'phone', 'alive_status', 'mother', 'father', 'parent_stay_together', 'mother_county', 'mother_subcounty', 'mother_loc', 'mother_sub_loc', 'mother_village', 'father_county', 'father_subcounty', 'father_loc', 'father_subloc', 'father_village', 'child_friend_activity', 'signs_of_violence', 'family_abuse', 'community_abuse', 'where_family_comm_live', 'social_connect_example', 'family_relation_extended', 'family_relation_neighbor', 'acceptance_level_child', 'family_sig_life_spec', 'pos_neg_events', 'adults_relationship', 'children_caregiver_relation', 'children_caregiver_confide_spec', 'children_caregiver_comfort_spec', 'children_caregiver_react_spec', 'children_caregiver_time_spec', 'children_caregiver_communication', 'children_caregiver_encourage', 'children_caregiver_misbehaviour', 'behaviour_change', 'daily_routine', 'independence', 'like', 'dislike', 'fear', 'skill', 'strength_resource', 'need_concern', 'aditional_observ', 'things_achieve', 'family_reason_separation', 'family_placement_child', 'family_child_school', 'family_other_siblings_school', 'meal_per_day', 'food_variety_consumed', 'food_source', 'source_reliability', 'latrine', 'clean_water_access', 'home_environ', 'bath_arrangement', 'sanitary', 'health_service', 'medical_insurance', 'member_chronic_illness', 'which_member', 'chronic_illness_type', 'dificulty_seeing', 'difficulty_hearing', 'difficulty_walking', 'dificulty_remembering', 'dificulty_self_care', 'other_infor', 'support_needed', 'other', 'signs_violence_specify', 'community_abuse_specify', 'child_exhibit', 'distance_school'], 'string'],
+            [['curr_health_cond_spec', 'chhronic_health_spec', 'current_medication_spec', 'immunized_reason', 'allergy_spec', 'current_edu_level_class', 'mental_health_spec', 'rel_cult_health_access_spec', 'fin_mat_support_out_spec', 'child_support', 'recomendation', 'case_worker_name', 'case_manager_name'], 'string', 'max' => 100],
+            [['feed_special_needs', 'prev_school', 'current_school_name', 'child_friend_views', 'child_friend_quality', 'admin_office', 'household_condition', 'community_culture_connect', 'family_social_connect', 'family_close_prox', 'local_leader', 'conflict_family_spec', 'child_curr_caregiver_attach', 'curr_caregiver_relation', 'child_prev_caregiver_attach', 'child_prev_caregiver_relation', 'household_additional_support_spec', 'school_unique_needs_spec', 'assets_owned_family'], 'string', 'max' => 200],
             [['fk_child'], 'exist', 'skipOnError' => true, 'targetClass' => Child::className(), 'targetAttribute' => ['fk_child' => 'id']],
-        ];
+        ]; 
     }
 
     /**
@@ -232,8 +222,10 @@ class NeedAssessment extends \yii\db\ActiveRecord
             'child_friend_quality' => 'What is the quality of these friendships i.e. do they encourage positive or negative behaviour?',
             'child_friend_age' => 'Are the percieved friends much older, younger or same age?',
             'signs_of_violence' => 'Are there signs of violence (including harsh physical punishment), abuse or neglect in the home?',
+            'signs_violence_specify' => "Please describe",
             'family_abuse' => 'Are there signs/reports of drug/alcohol abuse in the family?',
             'community_abuse' => 'Are there concerns of potential violence or abuse in community or school environment?',
+            'community_abuse_specify' => "Please specify",
             'admin_office' => 'Is there an accessible local administrative office? (chief, assistant chief, village elder, nyumba kumi)',
             'household_condition' => 'Describe the condition of the household (i.e. level of safety, roof/wall/floor, ventilation, number of rooms?)',
             'where_family_comm_live' => 'Does the family live in a rented home/living on the land legal?',
@@ -271,13 +263,7 @@ class NeedAssessment extends \yii\db\ActiveRecord
             'curr_caregiver_relation' => 'Describe the relationship',
             'child_prev_caregiver_attach' => 'Level of attachment with previous primary caregiver?',
             'child_prev_caregiver_relation' => 'Describe the relationship',
-            'self_harm' => 'Self Harm',
-            'known_history_abuse' => 'Known History Abuse',
-            'inaprop_sex_behaviour' => 'Inapropriate Sexual Behaviour',
-            'drug_abuse' => 'Drug and/or substance abuse',
-            'abuse_symptom' => 'Displays potential symptoms of abuse',
-            'emotional_distress' => 'displays signs of emotional distress',
-            'risk' => 'Exhibits Risk',
+            'child_exhibit' => "Does the child exhibit any of the following?",
             'behaviour_change' => 'Any unexplained recent change in behaviour',
             'daily_routine' => 'Daily Routine',
             'independence' => 'Degree of independence (i.e. what can the child do for themselves and what help do they need?',
@@ -341,6 +327,7 @@ class NeedAssessment extends \yii\db\ActiveRecord
             'other' => 'Other',
             'case_worker_name' => 'Case Worker Name',
             'case_manager_name' => 'Case Manager Name',
+            'distance_school' => "Distance To School"
         ];
     }
 
@@ -359,5 +346,25 @@ class NeedAssessment extends \yii\db\ActiveRecord
     public static function find()
     {
         return new NeedAssessmentQuery(get_called_class());
+    }
+
+    public function beforeSave($insert){
+        if(is_array($this->child_exhibit)){
+            $this->child_exhibit = implode(",", $this->child_exhibit);
+        }
+        
+
+        if($this->hasErrors()){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public function afterFind(){
+        $this->child_exhibit = explode(",", $this->child_exhibit);
+
+        return parent::afterFind();
     }
 }
